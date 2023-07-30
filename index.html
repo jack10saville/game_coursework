@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rocket Maths</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="homepage.css">
+</head>
+<body>
+    <div id="user-form">
+        <h1>Welcome to Jack's Maths Adventure</h1>
+        <form>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+            <br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="operation">Select an operation:</label>
+            <select id="operation" name="operation" required>
+                <option value="add">Add</option>
+                <option value="subtract">Subtract</option>
+                <option value="multiply">Multiply</option>
+                <option value="divide">Divide</option>
+            </select>
+            <br>
+            <label for="timesTable">Select a times table:</label>
+            <select id="timesTable" name="timesTable" required>
+                <option value="1">Times Table 1</option>
+                <option value="2">Times Table 2</option>
+                <option value="2">Times Table 3</option>
+                <option value="2">Times Table 4</option>
+                <!-- Add more options here -->
+            </select>
+            <br>
+            <!-- Pass the username as a query parameter to game.html -->
+            <a href="game.html" id="playNow">PLAY NOW</a>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

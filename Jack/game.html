@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="homepage.css">
+    <style>
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .cloud {
+            position: absolute;
+            width: 100px;
+            height: 60px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: moveDown linear infinite;
+        }
+        .cloud1 {
+            background-image: url('cloud1.jpeg');
+            top: 0;
+            left: 50px;
+            animation-duration: 10s; /* Adjust the duration as needed */
+        }
+        .cloud2 {
+            background-image: url('cloud2.jpeg');
+            top: 0;
+            left: 150px;
+            animation-duration: 15s; /* Adjust the duration as needed */
+        }
+        .cloud3 {
+            background-image: url('cloud3.jpeg');
+            top: 0;
+            left: 250px;
+            animation-duration: 12s; /* Adjust the duration as needed */
+        }
+        .cloud4 {
+            background-image: url('cloud4.jpeg');
+            top: 0;
+            left: 350px;
+            animation-duration: 14s; /* Adjust the duration as needed */
+        }
+        .cloud5 {
+            background-image: url('cloud5.jpeg');
+            top: 0;
+            left: 450px;
+            animation-duration: 16s; /* Adjust the duration as needed */
+        }
+        .cloud-static {
+            background-image: url('cloud-static.jpeg');
+            top: 50px;
+            right: 50px;
+            width: 200px; /* Increase the width of the static cloud */
+            height: 120px; /* Increase the height of the static cloud */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        @keyframes moveDown {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(800px); /* Adjust the distance as needed */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Rest of your HTML content... -->
+    <div class="header">
+        <!-- Header bar with username, score, and lives -->
+        <div class="username" id="usernameDisplay"></div>
+        <div class="score">Score: 0</div>
+        <div class="lives">Lives: 4</div>
+    </div>
+
+    <div class="game-container">
+        <!-- Rocket image -->
+        <img src="rocket.png" alt="Rocket" class="rocket">
+
+        <!-- Clouds with chosen times tables -->
+        <div class="cloud-container">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+            <div class="cloud cloud4"></div>
+            <div class="cloud cloud5"></div>
+            <!-- Add more clouds with different numbers as needed -->
+            <div class="cloud cloud-static"></div>
+            <!-- Static cloud on the top right -->
+        </div>
+
+        <!-- Falling numbers -->
+        <div class="falling-numbers">
+            <span>5</span>
+            <span>3</span>
+            <span>7</span>
+            <!-- Add more numbers as needed -->
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
