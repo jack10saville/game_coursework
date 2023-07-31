@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="homepage.css">
+    <style>
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .cloud {
+            position: absolute;
+            width: 100px;
+            height: 60px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: moveDown linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .cloud1 {
+            background-image: url('cloud1.jpeg');
+            top: 0;
+            left: 50px;
+            animation-duration: 10s; /* Adjust the duration as needed */
+        }
+        .cloud2 {
+            background-image: url('cloud2.jpeg');
+            top: 0;
+            left: 150px;
+            animation-duration: 15s; /* Adjust the duration as needed */
+        }
+        .cloud3 {
+            background-image: url('cloud3.jpeg');
+            top: 0;
+            left: 250px;
+            animation-duration: 12s; /* Adjust the duration as needed */
+        }
+        .cloud4 {
+            background-image: url('cloud4.jpeg');
+            top: 0;
+            left: 350px;
+            animation-duration: 14s; /* Adjust the duration as needed */
+        }
+        .cloud5 {
+            background-image: url('cloud5.jpeg');
+            top: 0;
+            left: 450px;
+            animation-duration: 16s; /* Adjust the duration as needed */
+        }
+        .cloud-static {
+            background-image: url('cloud-static.jpeg');
+            top: 50px;
+            right: 50px;
+            width: 200px; /* Increase the width of the static cloud */
+            height: 120px; /* Increase the height of the static cloud */
+        }
+
+        @keyframes moveDown {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(800px); /* Adjust the distance as needed */
+            }
+        }
+
+        /* Falling numbers styles */
+        .falling-numbers {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            position: absolute;
+            z-index: 2; /* Increase the z-index of falling numbers to 2 */
+        }
+
+        /* Number styles */
+        .falling-numbers span {
+            font-size: 24px;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Rest of your HTML content... -->
+    <div class="header">
+        <!-- Header bar with username, score, and lives -->
+        <div class="username" id="usernameDisplay"></div>
+        <div class="score">Score: 0</div>
+        <div class="lives">Lives: 4</div>
+    </div>
+
+    <!-- Rest of your HTML content... -->
+    <div class="game-container">
+        <!-- Rocket image -->
+        <img src="rocket.png" alt="Rocket" class="rocket">
+
+        <!-- Clouds with chosen times tables -->
+        <div class="cloud-container">
+            <div class="cloud cloud1">
+                <!-- Add a span for the number inside the cloud -->
+                <span></span>
+            </div>
+            <div class="cloud cloud2">
+                <!-- Add a span for the number inside the cloud -->
+                <span></span>
+            </div>
+            <div class="cloud cloud3">
+                <!-- Add a span for the number inside the cloud -->
+                <span></span>
+            </div>
+            <div class="cloud cloud4">
+                <!-- Add a span for the number inside the cloud -->
+                <span></span>
+            </div>
+            <div class="cloud cloud5">
+                <!-- Add a span for the number inside the cloud -->
+                <span></span>
+            </div>
+            <!-- Add more clouds with different numbers as needed -->
+            <div class="cloud cloud-static">
+                <!-- Add a span for the number inside the cloud -->
+                <span></span>
+            </div>
+            <!-- Static cloud on the top right -->
+        </div>
+
+        <!-- Falling numbers -->
+        <div class="falling-numbers">
+            <!-- Add empty spans to represent falling number elements -->
+            <span></span>
+            <span></span>
+            <span></span>
+            <!-- Add more spans as needed -->
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
