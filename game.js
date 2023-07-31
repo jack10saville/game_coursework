@@ -69,12 +69,15 @@ function generateRandomEquation() {
 // Update the static cloud with a random equation based on the user's chosen operation
 staticCloud.textContent = generateRandomEquation();
 
-for (let singular_cloud of clouds) {
+const allButLastClouds = Array.prototype.slice.call(clouds, 0, -1)
+
+
+for (let singular_cloud of allButLastClouds) {
     //
   singular_cloud.textContent = generateRandomEquation();
 }
 
-
+rocket_location =
 // Update the static cloud with the chosen operation
 updateStaticCloud();
 
@@ -152,18 +155,20 @@ function updateLives() {
 // Function to check if the rocket touches the correct answer
 function checkCollision() {
     const rocketRect = rocket.getBoundingClientRect();
-    const numbers = fallingNumbers.children;
+    // const clouds = clouds.children;
 
-    for (const number of numbers) {
-        const numberRect = number.getBoundingClientRect();
+    for (const cloud of allButLastClouds) {
+        const cloudRect = cloud.getBoundingClientRect();
 
         // Check for collision
         if (
-            rocketRect.left < numberRect.right &&
-            rocketRect.right > numberRect.left &&
-            rocketRect.top < numberRect.bottom &&
-            rocketRect.bottom > numberRect.top
+            rocketRect.left < cloudRect.right &&
+            rocketRect.right > cloudRect.left &&
+            rocketRect.top < cloudRect.bottom &&
+            rocketRect.bottom > cloudRect.top
         ) {
+          cloud.remove();
+
             const chosenNumber = clouds[0].textContent; // Get the chosen times table
             const currentNumber = number.textContent;
 
@@ -173,8 +178,6 @@ function checkCollision() {
             } else {
                 lives -= 1;
             }
-
-            number.remove();
 
             // Update displays
             updateScore();
@@ -198,6 +201,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+setInterval(checkCollision, 100);
 // Function to start the game loop
 function startGame() {
     updateFallingNumbers();
