@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Game - Select Operation</title>
+    <!-- Add your stylesheets and other CSS files here -->
+</head>
+<body>
+    <!-- Your header and other content goes here -->
+
+    <!-- Operation selection dropdown -->
+    <label for="operation">Select Operation:</label>
+    <select id="operation">
+        <option value="add">Addition (+)</option>
+        <option value="subtract">Subtraction (-)</option>
+        <option value="multiply">Multiplication (×)</option>
+        <option value="divide">Division (/)</option>
+    </select>
+
+    <!-- Button to start the game -->
+    <button onclick="startGame()">Start Game</button>
+
+    <script>
+        // Function to start the game by redirecting to game.html
+        function startGame() {
+            const selectedOperation = document.getElementById('operation').value;
+            localStorage.setItem('operation', selectedOperation);
+            window.location.href = 'game.html';
+        }
+    </script>
+</body>
+</html>

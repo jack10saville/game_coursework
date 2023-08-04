@@ -28,9 +28,7 @@
     width: 100px; /* Adjust the size as needed */
     position: absolute;
     bottom: 0;
-    z-index: 3; /* Higher z-index to make the rocket appear above clouds */
 }
-
 
 /* Cloud container styles */
 .cloud-container {

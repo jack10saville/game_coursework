@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Game - Select Operation</title>
+    <title>Space Adventure - Select Mission</title>
     <!-- Add your stylesheets and other CSS files here -->
+    <link rel="stylesheet" href="space-theme.css">
 </head>
 <body>
-    <!-- Your header and other content goes here -->
+    <div class="homepage-container">
+        <!-- Space Adventure header -->
+        <h1 class="homepage-header">Space Adventure</h1>
 
-    <!-- Operation selection dropdown -->
-    <label for="operation">Select Operation:</label>
-    <select id="operation">
-        <option value="add">Addition (+)</option>
-        <option value="subtract">Subtraction (-)</option>
-        <option value="multiply">Multiplication (×)</option>
-        <option value="divide">Division (/)</option>
-    </select>
+        <!-- Username input -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username">
 
-    <!-- Button to start the game -->
-    <button onclick="startGame()">Start Game</button>
+        <!-- Operation selection dropdown -->
+        <label for="operation">Select Operation:</label>
+        <select id="operation">
+            <option value="add">Addition (+)</option>
+            <option value="subtract">Subtraction (-)</option>
+            <option value="multiply">Multiplication (×)</option>
+            <option value="divide">Division (/)</option>
+        </select>
 
-    <script>
-        // Function to start the game by redirecting to game.html
-        function startGame() {
-            const selectedOperation = document.getElementById('operation').value;
-            localStorage.setItem('operation', selectedOperation);
-            window.location.href = 'game.html';
-        }
-    </script>
+        <!-- Error message container -->
+        <p id="error-message" style="color: red; display: none;">Please enter a username.</p>
+
+        <!-- Button to start the game -->
+        <button onclick="startGame()">Start Game</button>
+
+        <script>
+            // Function to start the game by redirecting to game.html
+            function startGame() {
+                const username = document.getElementById('username').value;
+                const selectedOperation = document.getElementById('operation').value;
+
+                if (username.trim() === '') {
+                    // Show error message if the username field is empty
+                    document.getElementById('error-message').style.display = 'block';
+                } else {
+                    // Hide the error message if username is entered
+                    document.getElementById('error-message').style.display = 'none';
+
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('operation', selectedOperation);
+
+                    window.location.href = 'game.html';
+                }
+            }
+        </script>
+    </div>
 </body>
 </html>

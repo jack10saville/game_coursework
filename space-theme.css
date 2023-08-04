@@ -1,0 +1,75 @@
+/* Reset default styles */
+html, body, div, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    background-color: #000000; /* Space-themed background color */
+}
+
+/* Space-themed container */
+.homepage-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #000000 20%, #000026 100%); /* Dark space gradient */
+    color: #ffffff; /* White text */
+}
+
+/* Space Adventure header */
+.homepage-header {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px #000000; /* Text shadow for space effect */
+}
+
+/* Mission selection dropdown and button styles */
+.homepage-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homepage-form label, .homepage-form select {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px #000000; /* Text shadow for space effect */
+}
+
+.homepage-form input[type="text"],
+.homepage-form select {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ffffff; /* White border */
+    border-radius: 5px;
+    background-color: transparent; /* Transparent background */
+    color: #ffffff; /* White text */
+}
+
+.homepage-form select {
+    width: 200px;
+}
+
+.homepage-form button {
+    padding: 12px 25px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff; /* White background */
+    color: #ffae42; /* Orange text */
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    text-shadow: 1px 1px #000000; /* Text shadow for space effect */
+}
+
+.homepage-form button:hover {
+    background-color: #ffbf00; /* Hover color - light orange */
+}

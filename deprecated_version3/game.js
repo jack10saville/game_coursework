@@ -19,29 +19,6 @@ const operation = localStorage.getItem('operation');
 // Update the header bar with the user details
 usernameDisplay.textContent = `Username: ${username}`;
 
-// Initialize score and lives variables
-let score = 0;
-let lives = 4;
-
-// Function to update the score display
-function updateScore() {
-    scoreDisplay.textContent = `Score: ${score}`;
-}
-
-// Function to update the lives display
-function updateLives() {
-    livesDisplay.textContent = `Lives: ${lives}`;
-}
-
-// Update the score and lives displays initially
-updateScore();
-updateLives();
-
-// Rest of your code...
-
-// Update the header bar with the user details
-usernameDisplay.textContent = `Username: ${username}`;
-
 // Event listener for arrow key press to move the rocket
 document.addEventListener('keydown', (e) => {
     const rocketRect = rocket.getBoundingClientRect();
@@ -136,66 +113,40 @@ function updateLives() {
     livesDisplay.textContent = `Lives: ${lives}`;
 }
 
-
-// Function to check if the rocket touches the correct answer or incorrect moving cloud
+// Function to check if the rocket touches the correct answer
 function checkCollision() {
     const rocketRect = rocket.getBoundingClientRect();
     const numbers = fallingNumbers.children;
 
-    // Check for collision with the correct answer
     for (const number of numbers) {
         const numberRect = number.getBoundingClientRect();
 
+        // Check for collision
         if (
             rocketRect.left < numberRect.right &&
             rocketRect.right > numberRect.left &&
             rocketRect.top < numberRect.bottom &&
             rocketRect.bottom > numberRect.top
         ) {
-            const chosenNumber = clouds[0].querySelector('span').textContent; // Get the chosen times table
+            const chosenNumber = clouds[0].textContent; // Get the chosen times table
             const currentNumber = number.textContent;
 
             // Check if the rocket touched the correct answer
-            if (parseInt(chosenNumber) * parseInt(currentNumber) === parseInt(staticCloud.textContent)) {
-                score += 10; // Add 10 points for the correct answer
-                number.remove(); // Remove the correct falling number
-                updateScore(); // Update the score display
+            if (parseInt(chosenNumber) * parseInt(currentNumber) === parseInt(number.textContent)) {
+                score += 1;
             } else {
                 lives -= 1;
-                updateLives(); // Update the lives display
             }
+
+            number.remove();
+
+            // Update displays
+            updateScore();
+            updateLives();
         }
     }
-
-    // Check for collision with moving clouds
-    clouds.forEach((cloud) => {
-        const cloudRect = cloud.getBoundingClientRect();
-
-        if (
-            rocketRect.left < cloudRect.right &&
-            rocketRect.right > cloudRect.left &&
-            rocketRect.top < cloudRect.bottom &&
-            rocketRect.bottom > cloudRect.top
-        ) {
-            const chosenNumber = clouds[0].querySelector('span').textContent; // Get the chosen times table
-            const currentNumber = cloud.querySelector('span').textContent;
-
-            // Check if the rocket touched a moving cloud with an incorrect answer
-            if (parseInt(chosenNumber) * parseInt(currentNumber) !== parseInt(staticCloud.textContent)) {
-                lives -= 1;
-
-                // Remove the entire cloud and update displays
-                cloud.remove();
-                updateLives(); // Update the lives display
-            }
-        }
-    });
 }
 
-
-
-
-// Function to update the numbers inside the moving clouds with new random numbers
 // Function to update the numbers inside the moving clouds with new random numbers
 function updateMovingCloudNumbers() {
     const randomNumber = Math.floor(Math.random() * 5); // Generate a random index for the cloud to show the answer
@@ -217,6 +168,7 @@ function updateMovingCloudNumbers() {
     });
 }
 
+
 // Function to start the game loop
 function startGame() {
     updateFallingNumbers();
@@ -225,9 +177,6 @@ function startGame() {
     setTimeout(startGame, 100); // Run the game loop every 100ms
 }
 
+
 // Start the game
 startGame();
-
-
-
-
