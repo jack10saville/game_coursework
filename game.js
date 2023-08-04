@@ -49,16 +49,22 @@ document.addEventListener('keydown', (e) => {
 
 function generateRandomEquation() {
     const number1 = Math.floor(Math.random() * 10) + 1; // Generate a random number between 1 and 10
-    const number2 = Math.floor(Math.random() * 10) + 1; // Generate another random number between 1 and 10
+    let number2;
 
     switch (operation) {
         case 'add':
+            number2 = Math.floor(Math.random() * 10) + 1;
             return `${number1} + ${number2}`;
         case 'subtract':
+            number2 = Math.floor(Math.random() * 10) + 1;
             return `${number1} - ${number2}`;
         case 'multiply':
+            number2 = Math.floor(Math.random() * 10) + 1;
             return `${number1} × ${number2}`; // Use "×" symbol for multiplication
         case 'divide':
+            do {
+                number2 = Math.floor(Math.random() * 10) + 1;
+            } while (number2 === 0); // Generate a non-zero number for division
             return `${number1} / ${number2}`;
         default:
             // Default to addition if no valid operation is provided
@@ -69,80 +75,35 @@ function generateRandomEquation() {
 // Update the static cloud with a random equation based on the user's chosen operation
 staticCloud.textContent = generateRandomEquation();
 
-const allButLastClouds = Array.prototype.slice.call(clouds, 0, -1)
-
-
-for (let singular_cloud of allButLastClouds) {
-    //
-  singular_cloud.textContent = generateRandomEquation();
-}
-
-rocket_location =
-// Update the static cloud with the chosen operation
-updateStaticCloud();
-
-// ... (other code remains unchanged)
-
 // Function to update the falling numbers with new random numbers
 function updateFallingNumbers() {
-  fallingNumbers.innerHTML = '';
-  const randomNumbers = []; // Array to store random numbers, including the answer
-  const answerIndex = Math.floor(Math.random() * 3); // Index for placing the answer in randomNumbers array
+    fallingNumbers.innerHTML = '';
+    const randomNumbers = []; // Array to store random numbers, including the answer
+    const answerIndex = Math.floor(Math.random() * 3); // Index for placing the answer in randomNumbers array
 
-  // Get the answer from the static cloud expression
-  const answer = eval(staticCloud.textContent);
+    // Get the answer from the static cloud expression
+    const answer = eval(staticCloud.textContent);
 
-  for (let i = 0; i < 3; i++) {
-      if (i === answerIndex) {
-          // Add the answer to the equation to the array
-          randomNumbers.push(answer);
-      } else {
-          // Add other random numbers to the array
-          let randomNumber;
-          do {
-              randomNumber = Math.floor(Math.random() * 10) + 1;
-          } while (randomNumber === answer); // Make sure the random number is not the same as the answer
-          randomNumbers.push(randomNumber);
-      }
+    for (let i = 0; i < 3; i++) {
+        if (i === answerIndex) {
+            // Add the answer to the equation to the array
+            randomNumbers.push(answer);
+        } else {
+            // Add other random numbers to the array
+            let randomNumber;
+            do {
+                randomNumber = Math.floor(Math.random() * 10) + 1;
+            } while (randomNumber === answer); // Make sure the random number is not the same as the answer
+            randomNumbers.push(randomNumber);
+        }
 
-      const numberSpan = document.createElement('span');
-      numberSpan.textContent = randomNumbers[i];
-      fallingNumbers.appendChild(numberSpan);
-  }
+        const numberSpan = document.createElement('span');
+        numberSpan.textContent = randomNumbers[i];
+        fallingNumbers.appendChild(numberSpan);
+    }
 }
 
-// ... (other code remains unchanged)
-// const correctNumber = parse(staticCloud.textContent); // Get the correct number from the static cloud
-// // function to generate random numbers and mix them with the correct number]
-// function generateRandomNumbers() {
-//     const randomNumbers = [];
-//     for (let i = 0; i < 3; i++) {
-//         let randomNumber;
-//         do {
-//             randomNumber = Math.floor(Math.random() * 10) + 1;
-//         } while (randomNumbers.includes(randomNumber) || randomNumber === correctNumber); // Generate a unique random number
-//         randomNumbers.push(randomNumber);
-//     }
-//     randomNumbers.push(correctNumber); // Add the correct number to the array
-//     randomNumbers.sort(() => Math.random() - 0.5); // Shuffle the array
-//     return randomNumbers;
-// }
-
-
-// // Function to update the falling numbers with new random numbers
-// function updateFallingNumbers() {
-//     fallingNumbers.innerHTML = '';
-//     for (let i = 0; i < 3; i++) {
-//         const randomNumber = Math.floor(Math.random() * 10) + 1;
-//         const numberSpan = document.createElement('span');
-//         numberSpan.textContent = randomNumber;
-//         fallingNumbers.appendChild(numberSpan);
-//     }
-// }
-
-fallingNumbers.textContent = generateRandomNumbers();
 // Function to update the score display
-
 function updateScore() {
     scoreDisplay.textContent = `Score: ${score}`;
 }
@@ -155,20 +116,18 @@ function updateLives() {
 // Function to check if the rocket touches the correct answer
 function checkCollision() {
     const rocketRect = rocket.getBoundingClientRect();
-    // const clouds = clouds.children;
+    const numbers = fallingNumbers.children;
 
-    for (const cloud of allButLastClouds) {
-        const cloudRect = cloud.getBoundingClientRect();
+    for (const number of numbers) {
+        const numberRect = number.getBoundingClientRect();
 
         // Check for collision
         if (
-            rocketRect.left < cloudRect.right &&
-            rocketRect.right > cloudRect.left &&
-            rocketRect.top < cloudRect.bottom &&
-            rocketRect.bottom > cloudRect.top
+            rocketRect.left < numberRect.right &&
+            rocketRect.right > numberRect.left &&
+            rocketRect.top < numberRect.bottom &&
+            rocketRect.bottom > numberRect.top
         ) {
-          cloud.remove();
-
             const chosenNumber = clouds[0].textContent; // Get the chosen times table
             const currentNumber = number.textContent;
 
@@ -179,6 +138,8 @@ function checkCollision() {
                 lives -= 1;
             }
 
+            number.remove();
+
             // Update displays
             updateScore();
             updateLives();
@@ -186,28 +147,36 @@ function checkCollision() {
     }
 }
 
-// Event listener for arrow key press to move the rocket
-document.addEventListener('keydown', (e) => {
-    const rocketRect = rocket.getBoundingClientRect();
+// Function to update the numbers inside the moving clouds with new random numbers
+function updateMovingCloudNumbers() {
+    const randomNumber = Math.floor(Math.random() * 5); // Generate a random index for the cloud to show the answer
+    const answer = eval(staticCloud.textContent); // Get the answer from the static cloud expression
 
-    if (e.key === 'ArrowLeft' && rocketRect.left > 0) {
-        rocket.style.left = `${rocketRect.left - 20}px`; // Increase the distance for left movement
-    } else if (e.key === 'ArrowRight' && rocketRect.right < window.innerWidth) {
-        rocket.style.left = `${rocketRect.left + 20}px`; // Increase the distance for right movement
-    } else if (e.key === 'ArrowUp' && rocketRect.top > 0) {
-        rocket.style.top = `${rocketRect.top - 20}px`; // Increase the distance for upward movement
-    } else if (e.key === 'ArrowDown' && rocketRect.bottom < window.innerHeight) {
-        rocket.style.top = `${rocketRect.top + 20}px`; // Increase the distance for downward movement
-    }
-});
+    clouds.forEach((cloud, index) => {
+        if (index === randomNumber) {
+            // If the current cloud's index matches the random index, display the answer on this cloud
+            cloud.querySelector('span').textContent = answer;
+        } else {
+            // Otherwise, set a random number (excluding the answer) for the other clouds
+            let randomNum;
+            do {
+                randomNum = Math.floor(Math.random() * 10) + 1;
+            } while (randomNum === answer); // Make sure the random number is not the same as the answer
 
-setInterval(checkCollision, 100);
+            cloud.querySelector('span').textContent = randomNum;
+        }
+    });
+}
+
+
 // Function to start the game loop
 function startGame() {
     updateFallingNumbers();
+    updateMovingCloudNumbers(); // Update the numbers inside the moving clouds
     checkCollision();
     setTimeout(startGame, 100); // Run the game loop every 100ms
 }
+
 
 // Start the game
 startGame();
